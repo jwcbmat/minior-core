@@ -1,4 +1,4 @@
-import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { RequestsService } from './requests.service';
 import { StoredRequestResponseDto } from './dto/stored-request-response.dto';
 
