@@ -8,9 +8,9 @@ export class BentoClientService {
 
   async getFee(from, to, merchantId: string, uuid: string, authHeader: string) {
     try {
-      const response = await firstValueFrom(
+      const { data } = await firstValueFrom(
         this.http.post(
-          'https://api.bento.ky/api/v1/delivery/fee',
+          '/delivery/fee',
           {
             addressFrom: { coordinates: from },
             addressTo: { coordinatesAdjustment: to },
@@ -20,13 +20,11 @@ export class BentoClientService {
           {
             headers: {
               Authorization: authHeader,
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
             },
           },
         ),
       );
-      return response.data;
+      return data;
     } catch (error) {
       throw new HttpException(
         `Error querying Bento API: ${error.message}`,
