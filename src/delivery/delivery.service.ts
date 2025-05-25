@@ -12,29 +12,32 @@ export class DeliveryService {
   ) {}
 
   async calculateFee(input: DeliveryFeeRequest): Promise<DeliveryResponseDto> {
-    const bentoData = await this.bentoClient.getFee(
-      input.from,
-      input.to,
-      input.merchantId,
-      input.uuid,
-      input.authHeader,
+    const { from, to, merchantId, authHeader, userAgent } = input;
+    const uuid = input.uuid.trim();
+
+    const { fee, deliveryTime, distanceMeters } = await this.bentoClient.getFee(
+      from,
+      to,
+      merchantId,
+      uuid,
+      authHeader,
     );
 
-    const originalFee = bentoData.fee / 100;
+    const originalFee = fee / 100;
     const newFee = parseFloat((originalFee * 1.13).toFixed(2));
 
     const record = {
       originalFee,
       newFee,
-      deliveryTime: bentoData.deliveryTime ?? 0,
-      distanceMeters: bentoData.distanceMeters,
+      deliveryTime: deliveryTime ?? 0,
+      distanceMeters: distanceMeters,
       coordinates: {
-        from: input.from,
-        to: input.to,
+        from,
+        to,
       },
-      uuid: input.uuid,
-      merchantId: input.merchantId,
-      userAgent: input.userAgent,
+      uuid,
+      merchantId,
+      userAgent,
     };
 
     await this.dbService.saveRequest(record);
