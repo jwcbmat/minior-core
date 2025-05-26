@@ -46,7 +46,7 @@ Run the application locally:
 pnpm start:dev
 ```
 
-Then open: [http://localhost:3000/api](http://localhost:3000/docs) for Swagger UI.
+Then open: [http://localhost:3000/docs](http://localhost:3000/docs) for Swagger UI.
 
 You will need a `.env` file with the following content:
 
