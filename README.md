@@ -55,7 +55,7 @@ GOOGLE_CLOUD_PROJECT=minior-core-api
 FIRESTORE_EMULATOR_HOST=localhost:8080
 ```
 
-> 💡 Firestore is accessed through the Admin SDK. If you are not using the emulator, you may provide a service account instead.
+> 💡 Firestore is accessed via the Firebase Admin SDK. If you’re not using the emulator, just provide a service account by setting the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the path of your Firestore service account credential file.
 
 ## Running with Docker
 
