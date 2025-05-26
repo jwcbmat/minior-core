@@ -11,16 +11,23 @@ export class DatabaseService implements OnModuleInit {
 
   onModuleInit() {
     const emulatorHost = this.config.get<string>('FIRESTORE_EMULATOR_HOST');
-    const projectId = this.config.get<string>('GOOGLE_CLOUD_PROJECT');
+    const projectId =
+      this.config.get<string>('GOOGLE_CLOUD_PROJECT') ?? 'minior-core-api';
 
     if (emulatorHost) {
       process.env.FIRESTORE_EMULATOR_HOST = emulatorHost;
       process.env.GOOGLE_CLOUD_PROJECT ||= projectId;
-    } else if (!admin.apps.length) {
-      admin.initializeApp({
-        credential: admin.credential.applicationDefault(),
-        projectId: this.config.get<string>('GOOGLE_CLOUD_PROJECT'),
-      });
+
+      if (!admin.apps.length) {
+        admin.initializeApp({ projectId });
+      }
+    } else {
+      if (!admin.apps.length) {
+        admin.initializeApp({
+          credential: admin.credential.applicationDefault(),
+          projectId,
+        });
+      }
     }
 
     this.db = admin.firestore();
