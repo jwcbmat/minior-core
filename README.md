@@ -11,6 +11,8 @@
 - [Getting Started](#getting-started)
 - [Running with Docker](#running-with-docker)
 - [Postman Collection](#postman-collection)
+- [Endpoints](#endpoints)
+- [Cloud Run](#cloud-run)
 - [Epilogue](#epilogue)
 
 ## Description
@@ -26,7 +28,7 @@ The project is designed to be modular, readable, and easy to maintain, leveragin
 #### Core Stack
 
 - [NestJS](https://docs.nestjs.com/) + [Typescript](https://www.typescriptlang.org/)
-  - [Axios / @nestjs/axios](https://docs.nestjs.com/techniques/http-module)
+  - [@nestjs/axios](https://docs.nestjs.com/techniques/http-module)
   - [@nestjs/config](https://docs.nestjs.com/techniques/configuration)
   - [@nestjs/swagger](https://docs.nestjs.com/openapi/introduction)
 - [Firebase Admin SDK](https://firebase.google.com/docs/firestore/client/libraries)
@@ -91,6 +93,37 @@ The environment contains:
 | `ANONYMOUS_USER_UUID` | UUID used   |
 
 > 💡 Make sure to import both files into Postman and select the appropriate environment to test the API properly.
+
+## Endpoints
+
+### GET /delivery/fee
+
+Calculates the delivery price using Bento API, applies a 13% margin, and stores the request metadata in Firestore.
+
+**Required Headers:**
+
+- `Authorization: Bearer <token>`
+- `User-Agent: <auto from browser/postman>`
+
+**Query Parameters:**
+
+- `fromLat`, `fromLng` – origin coordinates
+- `toLat`, `toLng` – destination coordinates
+- `merchantId` – Bento merchant ID
+- `uuid` – user UUID
+
+Returns a JSON with the original and adjusted fee, distance, time, coordinates, and metadata.
+
+### GET /requests/last
+
+Fetches the 10 most recent requests stored in the database. Each record contains all request details, including timestamp and user-agent.
+
+## Cloud Run
+
+This project is deployed and available publicly through Google Cloud Run.
+
+- Cloud Run URL: [https://minior-core-488469082392.us-central1.run.app](https://minior-core-488469082392.us-central1.run.app)
+- Swagger UI: [https://minior-core-488469082392.us-central1.run.app/docs](https://minior-core-488469082392.us-central1.run.app/docs)
 
 ## Epilogue
 
