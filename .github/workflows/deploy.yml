@@ -20,19 +20,19 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
-          project_id: ${{ vars.GOOGLE_CLOUD_PROJECT }}
-          install_components: 'cloud-build,run'
+          project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+          version: 'latest'
 
       - name: Build with Cloud Build
         run: |
-          gcloud builds submit --tag gcr.io/${{ vars.GOOGLE_CLOUD_PROJECT }}/${{ vars.SERVICE_NAME }}
+          gcloud builds submit --tag gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT }}/${{ secrets.SERVICE_NAME }}
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy ${{ vars.SERVICE_NAME }} \
-            --image gcr.io/${{ vars.GOOGLE_CLOUD_PROJECT }}/${{ vars.SERVICE_NAME }} \
+          gcloud run deploy ${{ secrets.SERVICE_NAME }} \
+            --image gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT }}/${{ secrets.SERVICE_NAME }} \
             --platform managed \
-            --region ${{ vars.REGION }} \
+            --region ${{ secrets.REGION }} \
             --allow-unauthenticated \
             --port 3000 \
-            --set-env-vars=NODE_ENV=${{ vars.NODE_ENV }},GOOGLE_CLOUD_PROJECT=${{ vars.GOOGLE_CLOUD_PROJECT }}
+            --set-env-vars=NODE_ENV=${{ secrets.NODE_ENV }},GOOGLE_CLOUD_PROJECT=${{ secrets.GOOGLE_CLOUD_PROJECT }}
