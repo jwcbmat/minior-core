@@ -9,6 +9,8 @@
 - [Description](#description)
 - [Prologue](#prologue)
 - [Getting Started](#getting-started)
+- [Running with Docker](#running-with-docker)
+- [Testing](#testing)
 - [Epilogue](#epilogue)
 
 ## Description
@@ -19,7 +21,7 @@ A RESTful API built with [NestJs](https://nestjs.com/) to integrate with the [be
 
 This project is my submission for the [bento.ky backend developer challenge](https://bento.ky).
 
-The project is designed to be modular, readable, and easy to maintain, leveraging NestJS is native features. I also aimed to establish a solid foundation for testing and ensure a good experience for anyone reviewing or evolving this code in the future.
+The project is designed to be modular, readable, and easy to maintain, leveraging NestJS's native features. I also aimed to establish a solid foundation for testing and ensure a good experience for anyone reviewing or evolving this code in the future.
 
 #### Core Stack
 
@@ -34,8 +36,52 @@ The project is designed to be modular, readable, and easy to maintain, leveragin
 
 Install the dependencies:
 
-```sh
-pnpm i
+```bash
+pnpm install
+```
+
+Run the application locally:
+
+```bash
+pnpm start:dev
+```
+
+Then open: [http://localhost:3000/api](http://localhost:3000/docs) for Swagger UI.
+
+You will need a `.env` file with the following content:
+
+```env
+GOOGLE_CLOUD_PROJECT=minior-core-api
+FIRESTORE_EMULATOR_HOST=localhost:8080
+```
+
+> 💡 Firestore is accessed through the Admin SDK. If you are not using the emulator, you may provide a service account instead.
+
+## Running with Docker
+
+The project includes a Dockerized setup with Firestore Emulator:
+
+```bash
+docker-compose up --build
+```
+
+- API available at: `http://localhost:3000`
+- Firestore Emulator at: `http://localhost:8080`
+
+This setup requires only Docker and `docker-compose` — no local dependencies needed.
+
+## Testing
+
+To run tests:
+
+```bash
+pnpm test
+```
+
+For coverage:
+
+```bash
+pnpm test:cov
 ```
 
 ## Epilogue
