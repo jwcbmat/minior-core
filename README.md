@@ -10,7 +10,6 @@
 - [Prologue](#prologue)
 - [Getting Started](#getting-started)
 - [Running with Docker](#running-with-docker)
-- [Testing](#testing)
 - [Epilogue](#epilogue)
 
 ## Description
@@ -21,7 +20,7 @@ A RESTful API built with [NestJs](https://nestjs.com/) to integrate with the [be
 
 This project is my submission for the [bento.ky backend developer challenge](https://bento.ky).
 
-The project is designed to be modular, readable, and easy to maintain, leveraging NestJS's native features. I also aimed to establish a solid foundation for testing and ensure a good experience for anyone reviewing or evolving this code in the future.
+The project is designed to be modular, readable, and easy to maintain, leveraging NestJS's native features. I aimed to establish a solid foundation for a good experience for anyone reviewing or evolving this code in the future.
 
 #### Core Stack
 
@@ -30,7 +29,6 @@ The project is designed to be modular, readable, and easy to maintain, leveragin
   - [@nestjs/config](https://docs.nestjs.com/techniques/configuration)
   - [@nestjs/swagger](https://docs.nestjs.com/openapi/introduction)
 - [Firebase Admin SDK](https://firebase.google.com/docs/firestore/client/libraries)
-- [Jest + Supertest](https://docs.nestjs.com/fundamentals/testing)
 
 ## Getting Started
 
@@ -69,20 +67,6 @@ docker-compose up --build
 - Firestore Emulator at: `http://localhost:8080`
 
 This setup requires only Docker and `docker-compose` — no local dependencies needed.
-
-## Testing
-
-To run tests:
-
-```bash
-pnpm test
-```
-
-For coverage:
-
-```bash
-pnpm test:cov
-```
 
 ## Epilogue
 
