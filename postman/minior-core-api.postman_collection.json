@@ -1,0 +1,282 @@
+{
+  "info": {
+    "_postman_id": "81ebe84f-3d1f-498b-8149-d634eb5f5f5e",
+    "name": "Minior Core API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "41758617"
+  },
+  "item": [
+    {
+      "name": "API Bento",
+      "item": [
+        {
+          "name": "retrieve user UUID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "pm.environment.set(\"ANONYMOUS_USER_UUID\", jsonData[\"uuid\"])"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_BENTO}}/users/profile",
+              "host": ["{{API_BENTO}}"],
+              "path": ["users", "profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "fetch delivery fee",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addressFrom\": {\n    \"coordinates\": {\n      \"lat\": 19.3331008,\n      \"lng\": -81.3801101\n    }\n  },\n  \"addressTo\": {\n    \"coordinatesAdjustment\": {\n      \"lat\": 19.280354483797733,\n      \"lng\": -81.37386862188578\n    }\n  },\n  \"merchant\": {\n    \"id\": \"\"\n  },\n  \"user\": {\n    \"uuid\": \"{{ANONYMOUS_USER_UUID}}\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_BENTO}}/delivery/fee",
+              "host": ["{{API_BENTO}}"],
+              "path": ["delivery", "fee"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Delivery Fee",
+      "item": [
+        {
+          "name": "delivery/fee",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {}
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL}}/delivery/fee?fromLat=19.3331008&fromLng=-81.3801101&toLat=19.280354483797733&toLng=-81.37386862188578&merchantId=&uuid={{ANONYMOUS_USER_UUID}}\n",
+              "host": ["{{LOCAL}}"],
+              "path": ["delivery", "fee"],
+              "query": [
+                {
+                  "key": "fromLat",
+                  "value": "19.3331008"
+                },
+                {
+                  "key": "fromLng",
+                  "value": "-81.3801101"
+                },
+                {
+                  "key": "toLat",
+                  "value": "19.280354483797733"
+                },
+                {
+                  "key": "toLng",
+                  "value": "-81.37386862188578"
+                },
+                {
+                  "key": "merchantId",
+                  "value": ""
+                },
+                {
+                  "key": "uuid",
+                  "value": "{{ANONYMOUS_USER_UUID}}\n"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delivery/fee - Jaragua do Sul",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {}
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL}}/delivery/fee?fromLat=-26.4946138&fromLng=-49.0908437&toLat=-26.4785666&toLng=-49.0844766&merchantId=&uuid={{ANONYMOUS_USER_UUID}}\n",
+              "host": ["{{LOCAL}}"],
+              "path": ["delivery", "fee"],
+              "query": [
+                {
+                  "key": "fromLat",
+                  "value": "-26.4946138"
+                },
+                {
+                  "key": "fromLng",
+                  "value": "-49.0908437"
+                },
+                {
+                  "key": "toLat",
+                  "value": "-26.4785666"
+                },
+                {
+                  "key": "toLng",
+                  "value": "-49.0844766"
+                },
+                {
+                  "key": "merchantId",
+                  "value": ""
+                },
+                {
+                  "key": "uuid",
+                  "value": "{{ANONYMOUS_USER_UUID}}\n"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delivery/fee - Curitiba",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {}
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL}}/delivery/fee?fromLat=-25.4499954&fromLng=-49.2818154&toLat=-25.4491192&toLng=-49.2849395&merchantId=&uuid={{ANONYMOUS_USER_UUID}}\n",
+              "host": ["{{LOCAL}}"],
+              "path": ["delivery", "fee"],
+              "query": [
+                {
+                  "key": "fromLat",
+                  "value": "-25.4499954"
+                },
+                {
+                  "key": "fromLng",
+                  "value": "-49.2818154"
+                },
+                {
+                  "key": "toLat",
+                  "value": "-25.4491192"
+                },
+                {
+                  "key": "toLng",
+                  "value": "-49.2849395"
+                },
+                {
+                  "key": "merchantId",
+                  "value": ""
+                },
+                {
+                  "key": "uuid",
+                  "value": "{{ANONYMOUS_USER_UUID}}\n"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Requests",
+      "item": [
+        {
+          "name": "requests/last",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LOCAL}}/requests/last",
+              "host": ["{{LOCAL}}"],
+              "path": ["requests", "last"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{TOKEN}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "LOCAL",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "API_BENTO",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "TOKEN",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
