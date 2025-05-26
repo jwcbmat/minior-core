@@ -25,7 +25,7 @@ jobs:
 
       - name: Build with Cloud Build
         run: |
-          gcloud builds submit --tag gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT }}/${{ secrets.SERVICE_NAME }}
+          gcloud builds submit --tag gcr.io/${{ secrets.GOOGLE_CLOUD_PROJECT }}/${{ secrets.SERVICE_NAME }} --no-stream-logs
 
       - name: Deploy to Cloud Run
         run: |
