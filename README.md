@@ -10,6 +10,7 @@
 - [Prologue](#prologue)
 - [Getting Started](#getting-started)
 - [Running with Docker](#running-with-docker)
+- [Postman Collection](#postman-collection)
 - [Epilogue](#epilogue)
 
 ## Description
@@ -67,6 +68,29 @@ docker-compose up --build
 - Firestore Emulator at: `http://localhost:8080`
 
 This setup requires only Docker and `docker-compose` — no local dependencies needed.
+
+## Postman Collection
+
+To simplify testing and demonstration, this project includes a Postman collection:
+
+- [Minior Core API Collection](./postman/minior-core-api.postman_collection.json)
+- [Minior Local Environment](./postman/minior-local.postman_environment.json)
+
+The collection uses the following variables:
+
+| Variable    | Description                                           |
+| ----------- | ----------------------------------------------------- |
+| `LOCAL`     | Base URL for local API (e.g. <http://localhost:3000>) |
+| `API_BENTO` | Base URL for the bento.ky API                         |
+| `TOKEN`     | Bearer token used for API authorization               |
+
+The environment contains:
+
+| Variable              | Description |
+| --------------------- | ----------- |
+| `ANONYMOUS_USER_UUID` | UUID used   |
+
+> 💡 Make sure to import both files into Postman and select the appropriate environment to test the API properly.
 
 ## Epilogue
 
