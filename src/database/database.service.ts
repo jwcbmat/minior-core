@@ -1,14 +1,34 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import * as admin from 'firebase-admin';
 import { IncomingRequestDto, StoredRequestDto } from './dto/database.dto';
 
 @Injectable()
-export class DatabaseService {
+export class DatabaseService implements OnModuleInit {
   private db: FirebaseFirestore.Firestore;
 
+  constructor(private readonly config: ConfigService) {}
+
   onModuleInit() {
-    if (!admin.apps.length) admin.initializeApp();
+    this.configureFirestore();
+
+    if (!admin.apps.length) {
+      admin.initializeApp({
+        projectId: this.config.get<string>('GOOGLE_CLOUD_PROJECT'),
+      });
+    }
+
     this.db = admin.firestore();
+  }
+
+  private configureFirestore() {
+    const emulatorHost = this.config.get<string>('FIRESTORE_EMULATOR_HOST');
+    const projectId = this.config.get<string>('GOOGLE_CLOUD_PROJECT');
+
+    if (emulatorHost) {
+      process.env.FIRESTORE_EMULATOR_HOST = emulatorHost;
+      process.env.GOOGLE_CLOUD_PROJECT ||= projectId;
+    }
   }
 
   async saveRequest(data: IncomingRequestDto): Promise<void> {

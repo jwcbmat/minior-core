@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  firestore:
+    image: google/cloud-sdk:latest
+    container_name: firestore-emulator
+    command: >
+      gcloud beta emulators firestore start
+      --host-port=0.0.0.0:8080
+    ports:
+      - '8080:8080'
+    environment:
+      - FIRESTORE_PROJECT_ID=minior-core-api
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minior-core
+    depends_on:
+      - firestore
+    environment:
+      FIRESTORE_EMULATOR_HOST: firestore:8080
+      GOOGLE_CLOUD_PROJECT: minior-core-api
+      NODE_ENV: development
+
+    ports:
+      - '3000:3000'
