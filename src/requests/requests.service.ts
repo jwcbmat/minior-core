@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import {
-  StoredRequestResponseDto,
-  SavedRequestDto,
-} from './dto/stored-request-response.dto';
+import { StoredRequestResponseDto } from './dto/stored-request-response.dto';
 
 @Injectable()
 export class RequestsService {
@@ -11,9 +8,5 @@ export class RequestsService {
 
   async getLastRequests(): Promise<StoredRequestResponseDto[]> {
     return await this.dbService.getLastRequests();
-  }
-
-  async saveRequest(data: SavedRequestDto): Promise<void> {
-    await this.dbService.saveRequest(data);
   }
 }
