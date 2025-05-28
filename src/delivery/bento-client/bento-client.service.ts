@@ -1,15 +1,30 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { AxiosResponse, AxiosError } from 'axios';
 import { firstValueFrom } from 'rxjs';
+
+type CoordinatesType = { lat: number; lng: number };
+
+interface FeeResponse {
+  fee: number;
+  deliveryTime: number;
+  distanceMeters: number;
+}
 
 @Injectable()
 export class BentoClientService {
   constructor(private readonly http: HttpService) {}
 
-  async getFee(from, to, merchantId: string, uuid: string, authHeader: string) {
+  async getFee(
+    from: CoordinatesType,
+    to: CoordinatesType,
+    merchantId: string,
+    uuid: string,
+    authHeader: string,
+  ): Promise<FeeResponse> {
     try {
-      const { data } = await firstValueFrom(
-        this.http.post(
+      const response: AxiosResponse<FeeResponse> = await firstValueFrom(
+        this.http.post<FeeResponse>(
           '/delivery/fee',
           {
             addressFrom: { coordinates: from },
@@ -24,12 +39,15 @@ export class BentoClientService {
           },
         ),
       );
-      return data;
+
+      return response.data;
     } catch (error) {
-      throw new HttpException(
-        `Error querying Bento API: ${error.message}`,
-        error.response?.status || 500,
-      );
+      const axiosError = error as AxiosError;
+
+      const message = axiosError.message || 'Unknown error querying Bento API';
+      const status = axiosError.response?.status ?? 500;
+
+      throw new HttpException(`Error querying Bento API: ${message}`, status);
     }
   }
 }
